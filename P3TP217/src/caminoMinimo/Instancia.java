@@ -5,29 +5,32 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.soap.Node;
+
 public class Instancia {
 	
-	private HashMap<String,HashSet<Double>> _adj;
-	private Double latitud, logitud;
+	private HashMap<String,HashSet<Double>> _ciudades;
+	private HashMap<String,HashSet<Integer>> _rutas;
 	
 	public Instancia() {
-		_adj = new HashMap<>();
+		_ciudades = new HashMap<>();
+		_rutas = new HashMap<String,HashSet<Integer>>();
 	}
 	
 	public void agregarCiudad (String nombre, Double latitud, Double longitud){
 		HashSet<Double> a= new HashSet<Double>();
 		a.add(latitud);
 		a.add(longitud);
-		_adj.put(nombre, a);
+		get_ciudades().put(nombre, a);
 	}
 	
-	public static void main(String[] args) {
-		Instancia ins = new Instancia();
-		ins.agregarCiudad("asd", 0.1, 0.2);
-		System.out.println(ins._adj.get("asd"));
-		ins.agregarCiudad("qwe", 0.2, 0.5);
-		System.out.println(ins._adj.get("qwe").add(0.4165));
-		System.out.println(ins._adj.get("qwe"));
+	public void agregarRuta (String ciudad1, String ciudad2, Double longitud, boolean peaje){
+		if (_ciudades.containsKey(ciudad1) && _ciudades.containsKey(ciudad2)){
+		_ciudades.get(ciudad1).add(longitud);
+		_ciudades.get(ciudad2).add(longitud);}
 	}
 
+	public HashMap<String,HashSet<Double>> get_ciudades() {
+		return _ciudades;
+	}
 }

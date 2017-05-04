@@ -11,10 +11,12 @@ public class Instancia {
 	
 	private HashMap<String,HashSet<Double>> _ciudades;
 	private HashMap<String,HashSet<Integer>> _rutas;
+	private boolean [] _peajes;
 	
-	public Instancia() {
+	public Instancia(int cantVertices) {
 		_ciudades = new HashMap<>();
 		_rutas = new HashMap<String,HashSet<Integer>>();
+		_peajes = new boolean[cantVertices];
 	}
 	
 	public void agregarCiudad (String nombre, Double latitud, Double longitud){
@@ -28,6 +30,7 @@ public class Instancia {
 		if (_ciudades.containsKey(ciudad1) && _ciudades.containsKey(ciudad2)){
 		_ciudades.get(ciudad1).add(longitud);
 		_ciudades.get(ciudad2).add(longitud);}
+//		_ciudades
 	}
 
 	public HashMap<String,HashSet<Double>> get_ciudades() {

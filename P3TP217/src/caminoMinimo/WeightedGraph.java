@@ -3,18 +3,21 @@ package caminoMinimo;
 public class WeightedGraph {
 	private int[][] edges; // adjacency matrix
 	private Object[] labels;
+	private boolean peajes[];
 
 	public WeightedGraph(int n) {
 		edges = new int[n][n];
 		labels = new Object[n];
+		peajes = new boolean[n];//MINE
 	}
 
 	public int size() {
 		return labels.length;
 	}
 
-	public void setLabel(int vertex, Object label) {
+	public void setLabel(int vertex, Object label, boolean p) {
 		labels[vertex] = label;
+		this.peajes[vertex]= p;//MINE
 	}
 
 	public Object getLabel(int vertex) {
@@ -54,6 +57,7 @@ public class WeightedGraph {
 
 	public void print() {
 		for (int j = 0; j < edges.length; j++) {
+			System.out.println("peaje: "+peajes[j]);//MINE
 			System.out.print(labels[j] + ": ");
 			for (int i = 0; i < edges[j].length; i++) {
 				if (edges[j][i] > 0)
@@ -61,6 +65,7 @@ public class WeightedGraph {
 			}
 			System.out.println();
 		}
+		
 	}
 
 }

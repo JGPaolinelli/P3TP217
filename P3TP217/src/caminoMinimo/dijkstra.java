@@ -3,7 +3,7 @@ package caminoMinimo;
 public class dijkstra {
 
 	// Dijkstra's algorithm to find shortest path from s to all other nodes
-	public static int[] dijkstra(WeightedGraph G, int s) {
+	public static int[] dijkstra(WeightedGraph G, int s, int t) {
 		final int[] dist = new int[G.size()]; // shortest known distance from
 												// "s"
 		final int[] pred = new int[G.size()]; // preceeding node in path
@@ -14,9 +14,11 @@ public class dijkstra {
 		}
 		dist[s] = 0;
 
-		for (int i = 0; i < dist.length; i++) {
+		for (int i = 0; i < t+1; i++) {
+//			System.out.println("dist[i]: "+dist[i]);
 			final int next = minVertex(dist, visited);
 			visited[next] = true;
+			System.out.println(visited.length);
 
 			// The shortest path to next is dist[next] and via pred[next].
 
@@ -37,7 +39,7 @@ public class dijkstra {
 		int x = Integer.MAX_VALUE;
 		int y = -1; // graph not connected, or no unvisited vertices
 		for (int i = 0; i < dist.length; i++) {
-			if (!v[i] && dist[i] < x) {
+			if (!v[i] && dist[i] < x) {				
 				y = i;
 				x = dist[i];
 			}

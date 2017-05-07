@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-import org.openstreetmap.gui.jmapviewer.JMapViewer;
+//import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
 
@@ -45,9 +45,9 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		JMapViewer jMapViewer = new JMapViewer();
-		jMapViewer.setBounds(0, 0, 434, 261);
-		frame.getContentPane().add(jMapViewer);
+////		JMapViewer jMapViewer = new JMapViewer();
+//		jMapViewer.setBounds(0, 0, 434, 261);
+//		frame.getContentPane().add(jMapViewer);
 		
 	}
 

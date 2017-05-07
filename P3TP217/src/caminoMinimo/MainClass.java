@@ -2,51 +2,28 @@ package caminoMinimo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainClass {
 
 	public static void main(String[] args) {
-//		Instancia ins = new Instancia(5);
-//		ins.agregarCiudad("asd", 0.1, 0.2);
-//		System.out.println(ins.get_ciudades().get("asd"));
-//		ins.agregarCiudad("qwe", 0.5, 0.15);
-//		System.out.println(ins.get_ciudades().get("qwe"));
-//		ins.agregarRuta("asd", "qwe", 500.0, false);
-//		System.out.println(ins.get_ciudades().get("asd"));
-//		System.out.println(ins.get_ciudades().get("qwe"));
-		
-//		Solver solver = new Solver(2);
-//		solver.resuelve(0);
-		
-		
-		  final WeightedGraph GRAFO = new WeightedGraph (4);
-		         GRAFO.setLabel (0, "v0",true);
-		         GRAFO.setLabel (1, "v1",true);
-		         GRAFO.setLabel (2, "v2",false);
-		         GRAFO.setLabel (3, "v3", true);
-		         GRAFO.addEdge(0, 1, 1);
-		         GRAFO.addEdge(0, 2, 5);
-		         GRAFO.addEdge(0, 3, 8);
-		         GRAFO.addEdge(1, 2, 3);
-		         GRAFO.addEdge(2, 3, 1);
-//		         t.addEdge(1, 0, 1);
-//		         t.addEdge(2, 0, 5);
-//		         GRAFO.print();
-//		   
-		         final int [] pred = dijkstra.dijkstra (GRAFO, 0,2);
-		         for (int n=0; n<4; n++) {
-		            dijkstra.printPath (GRAFO, pred, 0, n);
-		         }
-		         for (int i = 0; i < pred.length; i++) {
-					System.out.println(pred[i]);
-				}
-		
-//		ArrayList<HashSet<String>> a = new ArrayList<HashSet<String>>();
-//		a.add(new HashSet<String>());
-//		a.get(0).add("asd");
-//		System.out.println(a.get(0));
-		
+		List<Vertice> v = new ArrayList<Vertice>();
+		v.add(new Vertice("0", "0", 0.0, 3.0));
+		v.add(new Vertice("1", "1", 1.0, 4.0));
+		v.add(new Vertice("2", "2", 5.0, 17.0));
+		List<Arista> a = new ArrayList<Arista>();
+		a.add(new Arista("0", v.get(0), v.get(1), 3, false));
+		a.add(new Arista("1", v.get(0), v.get(2), 5, true));
+		a.add(new Arista("2", v.get(1), v.get(2), 1, false));
+		Grafo g = new Grafo(v, a);
+		Dijkstra d = new Dijkstra(g,1);
+		d.ejecutar(g.getVertices().get(0));
+		LinkedList<Vertice> camino  = d.getCamino(v.get(2));
+
+		for (Vertice vertex : camino) {
+            System.out.println(vertex);
+    }
 		
 	}
-
 }

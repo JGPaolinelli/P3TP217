@@ -134,7 +134,6 @@ public class Dijkstra {
 	public LinkedList<Vertice> getCamino(Vertice t) {
 		LinkedList<Vertice> camino = new LinkedList<Vertice>();
 		Vertice paso = t;
-		// check if a path exists
 		if (predecesores.get(paso) == null) {
 			return null;
 		}
@@ -143,7 +142,7 @@ public class Dijkstra {
 			paso = predecesores.get(paso);
 			camino.add(paso);
 		}
-		// Put it into the correct order
+		// con esto se reordena porque queda medio raro xD
 		Collections.reverse(camino);
 		return camino;
 	}

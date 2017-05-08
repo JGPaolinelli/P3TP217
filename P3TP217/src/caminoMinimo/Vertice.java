@@ -15,7 +15,7 @@ public class Vertice {
 		return _id;
 	}
 
-	public String getName() {
+	public String getNombre() {
 		return _nombre;
 	}
 	

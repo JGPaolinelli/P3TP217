@@ -17,7 +17,7 @@ public class Dijkstra {
 	private Map<Vertice, Vertice> predecesores;
 	private Map<Vertice, Integer> distancia;
 	private int peajesmax/*,peajesvisitados*/;
-	private HashMap<Vertice,Integer >peajesvisitados;
+	private HashMap<Vertice,Integer >peajesvisitados; //para poder guardar los peajes en cada arista y luego compararlos en tiempo real
 	
 
 	// copiamos los arreglos para poder modificarlos
@@ -54,6 +54,7 @@ public class Dijkstra {
 //					 "getDistanciaMinima(nodo) " +getDistanciaMinima(nodo)+" + "+ " getDistancia(nodo, t))"+getDistancia(nodo, t)+ " y si tiene peaje: "+getPeaje(nodo, t)
 //					 +"peajes visitados: "+peajesvisitados+ "peajes maximos: "+ peajesmax);	
 //			
+			//para que funcionara se copio lo que hace la primer parte del if, se utilizo el formato de distancia para comparar de la misma manera
 			if (getDistanciaMinima(t) > getDistanciaMinima(nodo) + getDistancia(nodo, t) && peajesmax >= getPeajeMinimo(nodo) + getPeaje(nodo, t) ){	
 				distancia.put(t, getDistanciaMinima(nodo) + getDistancia(nodo, t));
 				peajesvisitados.put(t, getPeajeMinimo(nodo) + getPeaje(nodo, t));

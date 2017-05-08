@@ -48,9 +48,9 @@ public class Dijkstra {
 	private void buscarDistanciaMinima(Vertice nodo) {
 		List<Vertice> nodosAdj = getVecinos(nodo);
 		for (Vertice t : nodosAdj) {
-//			System.out.println(t.getName());
+//			System.out.println(t.getNombre());
 //			System.out.println("getPeajeMinimo(nodo): "+getPeajeMinimo(nodo)+" + "+" getPeaje(nodo, t): "+getPeaje(nodo, t));
-//			System.out.println("nodo es:"+nodo.getName()+" y t es "+t.getName()+" getDistanciaMinima det:"+getDistanciaMinima(t)+"es mayor a la "+
+//			System.out.println("nodo es:"+nodo.getNombre()+" y t es "+t.getNombre()+" getDistanciaMinima det:"+getDistanciaMinima(t)+"es mayor a la "+
 //					 "getDistanciaMinima(nodo) " +getDistanciaMinima(nodo)+" + "+ " getDistancia(nodo, t))"+getDistancia(nodo, t)+ " y si tiene peaje: "+getPeaje(nodo, t)
 //					 +"peajes visitados: "+peajesvisitados+ "peajes maximos: "+ peajesmax);	
 //			

@@ -9,19 +9,26 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		List<Vertice> v = new ArrayList<Vertice>();
-		v.add(new Vertice("0", "0", 0.0, 3.0));
-		v.add(new Vertice("1", "1", 1.0, 4.0));
+		v.add(new Vertice("0", "Buenos Aires", 0.0, 3.0));
+		v.add(new Vertice("1", "La Pampa", 1.0, 4.0));
 		v.add(new Vertice("2", "2", 5.0, 17.0));
-		v.add(new Vertice("3", "3", 15.0, 18.0));
+		v.add(new Vertice("3", "Tu vieja", 15.0, 18.0));
+		v.add(new Vertice("4", "Cordoba", 15.0, 18.0));
+		v.add(new Vertice("5", "Mendoza", 15.0, 18.0));
+		v.add(new Vertice("6", "Salta", 15.0, 18.0));
 		List<Arista> a = new ArrayList<Arista>();
-		a.add(new Arista("0", v.get(0), v.get(1), 3, false));
-		a.add(new Arista("1", v.get(0), v.get(2), 5, false));
-		a.add(new Arista("2", v.get(1), v.get(2), 1, false));
-		a.add(new Arista("3", v.get(2), v.get(3), 1, false));
+		a.add(new Arista("0", v.get(0), v.get(1), 1, true));
+		a.add(new Arista("1", v.get(0), v.get(2), 1, true));
+		a.add(new Arista("2", v.get(1), v.get(3), 3, false));
+		a.add(new Arista("3", v.get(1), v.get(4), 2, false));
+		a.add(new Arista("3", v.get(2), v.get(4), 4, true));
+		a.add(new Arista("3", v.get(3), v.get(5), 2, true));
+		a.add(new Arista("3", v.get(4), v.get(6), 15, true));
+		a.add(new Arista("3", v.get(5), v.get(6), 10, false));
 		Grafo g = new Grafo(v, a);
-		Dijkstra d = new Dijkstra(g,3);
+		Dijkstra d = new Dijkstra(g,2);
 		d.ejecutar(g.getVertices().get(0));
-		LinkedList<Vertice> camino  = d.getCamino(v.get(3));
+		LinkedList<Vertice> camino  = d.getCamino(v.get(6));
 
 		for (Vertice vertex : camino) {
             System.out.println(vertex);

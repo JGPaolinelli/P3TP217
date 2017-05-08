@@ -136,7 +136,7 @@ public class Dijkstra {
 		LinkedList<Vertice> camino = new LinkedList<Vertice>();
 		Vertice paso = t;
 		if (predecesores.get(paso) == null) {
-			return null;
+			throw new IllegalArgumentException("No hay camino disponible para esa cantidad de peajes, pagá rata!");
 		}
 		camino.add(paso);
 		while (predecesores.get(paso) != null) {	

@@ -23,5 +23,12 @@ public class Vertice {
     public String toString() {
             return _nombre;
     }
+	
+	public double getLatitud(){
+		return _lat;
+	}
+	public double getLongitud(){
+		return _long;
+	}
 
 }

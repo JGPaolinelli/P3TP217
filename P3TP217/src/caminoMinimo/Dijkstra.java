@@ -55,7 +55,7 @@ public class Dijkstra {
 //					 +"peajes visitados: "+peajesvisitados+ "peajes maximos: "+ peajesmax);	
 //			
 			//para que funcionara se copio lo que hace la primer parte del if, se utilizo el formato de distancia para comparar de la misma manera
-			if (getDistanciaMinima(t) > getDistanciaMinima(nodo) + getDistancia(nodo, t) && peajesmax >= getPeajeMinimo(nodo) + getPeaje(nodo, t) ){	
+			if (getDistanciaMinima(t) > getDistanciaMinima(nodo) + getDistancia(nodo, t) && peajesmax >= getPeajeMinimo(nodo) + getPeaje(nodo, t) ){
 				distancia.put(t, getDistanciaMinima(nodo) + getDistancia(nodo, t));
 				peajesvisitados.put(t, getPeajeMinimo(nodo) + getPeaje(nodo, t));
 				predecesores.put(t, nodo);
@@ -63,6 +63,7 @@ public class Dijkstra {
 				}
 					
 		}
+		
 	}
 
 	private List<Vertice> getVecinos(Vertice node) {
@@ -82,6 +83,7 @@ public class Dijkstra {
 	private int getDistancia(Vertice node, Vertice target) {
 		for (Arista arista : aristas) {
 			if (arista.getSalida().equals(node) && arista.getDestino().equals(target)) {
+				
 				return arista.getPeso();
 			}
 		}

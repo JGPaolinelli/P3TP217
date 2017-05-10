@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Panel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.xml.bind.ParseConversionEvent;
 
@@ -81,7 +83,7 @@ public class Main {
 		jMapViewer.setBounds(0, 0, 400, 258);
 		frame.getContentPane().add(jMapViewer);
 		contid = 0;
-		contruta =0;
+		contruta = 0;
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(444, 108, 276, 184);
@@ -101,16 +103,18 @@ public class Main {
 		JButton btnAsd = new JButton("asd");
 		btnAsd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				jMapViewer.addMapMarker(new MapMarkerDot(-34.6083, -58.3712));
-				jMapViewer.addMapMarker(new MapMarkerDot(-31.4, -64.1833));
-
-//				Coordinate one = new Coordinate(-34.6083, -58.3712);
-//				Coordinate two = new Coordinate(-31.4, -64.1833);
-//				List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(one, two, two));
-//				MapPolygonImpl r = new MapPolygonImpl(route);
-//				r.setColor(Color.BLACK);
-//				jMapViewer.addMapPolygon(r);
-//				jMapViewer.setDisplayPositionByLatLon(-34.6083, -58.3712, 5);
+				// jMapViewer.addMapMarker(new MapMarkerDot(-34.6083,
+				// -58.3712));
+				// jMapViewer.addMapMarker(new MapMarkerDot(-31.4, -64.1833));
+				System.out.println(jMapViewer.getMapPolygonList().get(0));
+				// Coordinate one = new Coordinate(-34.6083, -58.3712);
+				// Coordinate two = new Coordinate(-31.4, -64.1833);
+				// List<Coordinate> route = new
+				// ArrayList<Coordinate>(Arrays.asList(one, two, two));
+				// MapPolygonImpl r = new MapPolygonImpl(route);
+				// r.setColor(Color.BLACK);
+				// jMapViewer.addMapPolygon(r);
+				// jMapViewer.setDisplayPositionByLatLon(-34.6083, -58.3712, 5);
 
 			}
 		});
@@ -187,8 +191,6 @@ public class Main {
 		});
 		btnAceptar.setBounds(93, 123, 89, 23);
 		panel_1.add(btnAceptar);
-		
-		
 
 		JLabel lblNombreDeLa = new JLabel("Nombre de la ruta:");
 		lblNombreDeLa.setBounds(10, 11, 111, 14);
@@ -209,9 +211,6 @@ public class Main {
 		JLabel lblPeaje = new JLabel("Peaje: ");
 		lblPeaje.setBounds(10, 114, 46, 14);
 		panel.add(lblPeaje);
-
-		
-		
 
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
@@ -237,41 +236,95 @@ public class Main {
 		textField_8.setColumns(10);
 		textField_8.setBounds(131, 108, 111, 20);
 		panel.add(textField_8);
-		
+
+		JButton btnCalcular = new JButton("Calcular!");
+		btnCalcular.addActionListener(new ActionListener() {
+			Grafo g = new Grafo(v, a);
+			LinkedList<Vertice> camino = null;
+
+			public void actionPerformed(ActionEvent arg0) {
+				String result = JOptionPane.showInputDialog(frame, "Ingresa la cantidad de peajes:");
+				String result1 = JOptionPane.showInputDialog(frame, "Ingresa desde que ciudad queres partir:");
+				String result2 = JOptionPane.showInputDialog(frame, "Ingresa a que ciudad queres llegar:");
+				Dijkstra d = new Dijkstra(g, new Integer(result));
+				for (Vertice vertice : v) {
+					if (vertice.getNombre().equals(result1)) {
+						d.ejecutar(v.get(new Integer(vertice.getId())));
+					}
+					if (vertice.getNombre().equals(result2)) {
+						camino = d.getCamino(v.get(new Integer(vertice.getId())));
+					}
+				}
+
+				for (int i = 0; i < camino.size(); i++) {
+					if (i+1< camino.size()) {
+						Coordinate one = new Coordinate(camino.get(i).getLongitud(), camino.get(i).getLatitud());
+						Coordinate two = new Coordinate(camino.get(i + 1).getLongitud(),
+								camino.get(i + 1).getLatitud());
+						List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(one, two, two));
+						MapPolygonImpl r = new MapPolygonImpl(route);
+						r.setColor(Color.GREEN);
+						jMapViewer.addMapPolygon(r);
+					}
+					else{
+						break;
+					}
+				}
+			}
+		});
+		btnCalcular.setBounds(180, 283, 91, 23);
+		frame.getContentPane().add(btnCalcular);
+		btnCalcular.setVisible(false);
+
 		JButton button = new JButton("Aceptar");
 		button.addActionListener(new ActionListener() {
 			boolean b = false;
-			Vertice aux1= null;
-			Vertice aux2= null;
+			Vertice aux1 = null;
+			Vertice aux2 = null;
+
 			public void actionPerformed(ActionEvent arg0) {
-				if(v.isEmpty())
+				if (v.isEmpty())
 					throw new IllegalComponentStateException("no hay ciudades");
-				if(textField_8.getText().equals("si")){
+				if (textField_8.getText().equals("si")) {
 					b = true;
 				}
 				for (Vertice vertice : v) {
 					if (vertice.getNombre().equals(textField_5.getText()))
 						aux1 = vertice;
 					if (vertice.getNombre().equals(textField_6.getText()))
-						aux2= vertice;
-				}		
-				a.add(new Arista(textField_4.getText(), aux1, aux2,new Integer(textField_7.getText()),b));
-				Coordinate one = new Coordinate(a.get(contruta).getSalida().getLongitud(), a.get(contruta).getSalida().getLatitud());
-				Coordinate two = new Coordinate(a.get(contruta).getDestino().getLongitud(), a.get(contruta).getDestino().getLatitud());
+						aux2 = vertice;
+				}
+				a.add(new Arista(textField_4.getText(), aux1, aux2, new Integer(textField_7.getText()), b));
+				Coordinate one = new Coordinate(a.get(contruta).getSalida().getLongitud(),
+						a.get(contruta).getSalida().getLatitud());
+				Coordinate two = new Coordinate(a.get(contruta).getDestino().getLongitud(),
+						a.get(contruta).getDestino().getLatitud());
 				List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(one, two, two));
 				MapPolygonImpl r = new MapPolygonImpl(route);
-				r.setColor(Color.BLACK);
+				if (b) {
+					r.setColor(Color.RED);
+				} else {
+					r.setColor(Color.BLACK);
+				}
+				textField_4.setText("");
+				textField_5.setText("");
+				textField_6.setText("");
+				textField_7.setText("");
+				textField_8.setText("");
+				b = false;
 				jMapViewer.addMapPolygon(r);
 				contruta++;
+				if (a.size() >= 2) {
+					btnCalcular.setVisible(true);
+				}
 			}
 		});
 		button.setBounds(93, 160, 89, 23);
 		panel.add(button);
-		
-//		JButton btnNewButton_1 = new JButton("Dibujar Ruta");
-//		btnNewButton_1.setBounds(89, 183, 105, 23);
-//		panel.add(btnNewButton_1);
 
+		// JButton btnNewButton_1 = new JButton("Dibujar Ruta");
+		// btnNewButton_1.setBounds(89, 183, 105, 23);
+		// panel.add(btnNewButton_1);
 
 		jMapViewer.setDisplayPositionByLatLon(-34.6083, -58.3712, 5);
 

@@ -27,6 +27,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Frame;
+
 import javax.swing.border.EtchedBorder;
 
 public class Main {
@@ -123,9 +125,9 @@ public class Main {
 					textField_Latitud.setText(textField_Latitud.getText().replace('.', ','));
 					textField_Longitud.setText(textField_Longitud.getText().replace('.', ','));
 					if (!esNumero(textField_Latitud.getText())) {
-						alerta("No ingresaste una latitud correcta!", "Latitud invalido");
+						alertaVertice("No ingresaste una latitud correcta!");
 					} else if (!esNumero(textField_Longitud.getText())) {
-						alerta("No ingresaste una longitud correcta!", "Latitud invalido");
+						alertaVertice("No ingresaste una longitud correcta!");
 					} else {
 						vertices.add(new Vertice(Integer.toString(contid), textField_NombreCiudad.getText(),
 								new Double(textField_Latitud.getText()), new Double(textField_Longitud.getText())));
@@ -139,13 +141,13 @@ public class Main {
 				} else {
 					if (textField_NombreCiudad.getText().equals("") && textField_Latitud.getText().equals("")
 							&& textField_Longitud.getText().equals("")) {
-						alerta("Campos vacios!", "Ciudad invalido");
+						alertaVertice("Campos vacios!");
 					} else if (textField_NombreCiudad.getText().equals("")) {
-						alerta("No ingresaste un nombre!", "Ciudad invalido");
+						alertaVertice("No ingresaste un nombre!");
 					} else if (textField_Latitud.getText().equals("")) {
-						alerta("No ingresaste la latiud!", "Ciudad invalida");
+						alertaVertice("No ingresaste la latiud!");
 					} else if (textField_Longitud.getText().equals("")) {
-						alerta("No ingresaste la longitud!", "Ciudad invalida");
+						alertaVertice("No ingresaste la longitud!");
 					}
 
 				}
@@ -154,12 +156,12 @@ public class Main {
 		});
 		btnAceptarCiudad.setBounds(109, 128, 86, 24);
 		panel_1.add(btnAceptarCiudad);
-		
+
 		JLabel lblVertice = new JLabel("Vertice");
 		lblVertice.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		lblVertice.setBounds(69, 0, 62, 30);
 		panel_1.add(lblVertice);
-		
+
 		JButton btnCancelarCiudad = new JButton("Cancelar");
 		btnCancelarCiudad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -229,11 +231,11 @@ public class Main {
 				Vertice verticeAux_2 = null;
 				boolean hayError = false;
 				if (vertices.size() <= 1) {
-					alerta("No hay dos o mas ciudades para agregarle un camino!", "Camino invalido!");
+					alertaArista("No hay dos o mas vertices para agregar una arista!");
 				}
 				if (textField_Inicio.getText().equals("") && textField_Inicio.getText().equals("")
 						&& textField_Fin.getText().equals("") && textField_Distancia.getText().equals("")) {
-					alerta("Campos vacios!", "Camino invalido!");
+					alertaArista("Campos vacios!");
 				} else {
 
 					if (!textField_Peaje.getText().equals("")) {
@@ -252,20 +254,20 @@ public class Main {
 						}
 					}
 					if (verticeAux_1 == null) {
-						alerta("El nombre de inicio no existe!", "No se creo el camino");
+						alertaArista("El nombre de inicio no existe!");
 						hayError = true;
 					}
 					if (verticeAux_2 == null) {
-						alerta("El nombre de fin no existe!", "No se creo el camino");
+						alertaArista("El nombre de fin no existe!");
 						hayError = true;
 					}
 					if (!hayError && !textField_NombreCamino.getText().equals("")
 							&& !textField_Distancia.getText().equals("")) {
 						if (verticeAux_1.equals(verticeAux_2)) {
-							alerta("No se pueden agregar bucles!", "No se creo el camino");
+							alertaArista("No se pueden agregar bucles!");
 							hayError = true;
 						} else if (!esNumero(textField_Distancia.getText())) {
-							alerta("No ingresaste una distancia correcta!", "Distancia invalido");
+							alertaArista("No ingresaste una distancia correcta!");
 							hayError = true;
 						} else {
 							aristas.add(new Arista(textField_NombreCamino.getText(), verticeAux_1, verticeAux_2,
@@ -273,9 +275,9 @@ public class Main {
 						}
 					} else {
 						if (textField_NombreCamino.getText().equals("")) {
-							alerta("No agregarte un nombre", "Camino invalido");
+							alertaArista("No agregaste un nombre");
 						} else if (textField_Distancia.getText().equals("")) {
-							alerta("No agregaste una distancia", "Camino invalido");
+							alertaArista("No agregaste una distancia");
 						}
 						hayError = true;
 					}
@@ -305,7 +307,7 @@ public class Main {
 		});
 		btnAceptarCamino.setBounds(106, 164, 86, 24);
 		panel.add(btnAceptarCamino);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -314,7 +316,7 @@ public class Main {
 		});
 		btnCancelar.setBounds(10, 164, 86, 24);
 		panel.add(btnCancelar);
-		
+
 		JLabel lblArista = new JLabel("Arista");
 		lblArista.setFont(new Font("Comic Sans MS", Font.BOLD | Font.ITALIC, 15));
 		lblArista.setBounds(75, 11, 52, 14);
@@ -365,33 +367,54 @@ public class Main {
 				if (aristas.size() >= 2) {
 					Grafo g = new Grafo(vertices, aristas);
 					LinkedList<Vertice> camino = null;
-					String cantidadPeajes = JOptionPane.showInputDialog(frame, "Ingresa la cantidad de peajes:");
-					String ciudadInicial = JOptionPane.showInputDialog(frame,
-							"Ingresa desde que ciudad queres partir:");
-					String ciudadFinal = JOptionPane.showInputDialog(frame, "Ingresa a que ciudad queres llegar:");
-					Dijkstra d = new Dijkstra(g, new Integer(cantidadPeajes));
-					for (Vertice vertice : vertices) {
-						if (vertice.getNombre().equals(ciudadInicial)) {
-							d.ejecutar(vertices.get(new Integer(vertice.getId())));
+					String cantidadPeajes = inputUsuario(frame, "Ingresa la cantidad de peajes:");
+					if (!esNumero(cantidadPeajes)) {
+						alerta("Ingresaste una cantidad de peajes invalida!", "404");
+					} else {
+						String ciudadInicial = inputUsuario(frame, "Ingresa el vertice inicial: ");
+						String ciudadFinal = inputUsuario(frame, "Ingresa el vertice final: ");
+						Vertice verticeAux_1 = null;
+						Vertice verticeAux_2 = null;
+						for (Vertice vertice : vertices) {
+							if (vertice.getNombre().equals(ciudadInicial)) {
+								verticeAux_1 = vertice;
+							}
+							if (vertice.getNombre().equals(ciudadFinal)) {
+								verticeAux_2 = vertice;
+							}
 						}
-						if (vertice.getNombre().equals(ciudadFinal)) {
-							camino = d.getCamino(vertices.get(new Integer(vertice.getId())));
+						if (verticeAux_1 == null) {
+							alerta("El vertice inicial no existe!", "404");
+						} else if (verticeAux_2 == null) {
+							alerta("El vertice final no existe!", "404");
+						} else {
+							Dijkstra d = new Dijkstra(g, new Integer(cantidadPeajes));
+							for (Vertice vertice : vertices) {
+								if (vertice.getNombre().equals(ciudadInicial)) {
+									d.ejecutar(vertices.get(new Integer(vertice.getId())));
+								}
+								if (vertice.getNombre().equals(ciudadFinal)) {
+									camino = d.getCamino(vertices.get(new Integer(vertice.getId())));
+								}
+							}
+
+							for (int i = 0; i < camino.size(); i++) {
+								if (i + 1 < camino.size()) {
+									Coordinate one = new Coordinate(camino.get(i).getLongitud(),
+											camino.get(i).getLatitud());
+									Coordinate two = new Coordinate(camino.get(i + 1).getLongitud(),
+											camino.get(i + 1).getLatitud());
+									List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(one, two, two));
+									MapPolygonImpl r = new MapPolygonImpl(route);
+									r.setColor(Color.GREEN);
+									jMapViewer.addMapPolygon(r);
+								} else {
+									break;
+								}
+							}
 						}
 					}
 
-					for (int i = 0; i < camino.size(); i++) {
-						if (i + 1 < camino.size()) {
-							Coordinate one = new Coordinate(camino.get(i).getLongitud(), camino.get(i).getLatitud());
-							Coordinate two = new Coordinate(camino.get(i + 1).getLongitud(),
-									camino.get(i + 1).getLatitud());
-							List<Coordinate> route = new ArrayList<Coordinate>(Arrays.asList(one, two, two));
-							MapPolygonImpl r = new MapPolygonImpl(route);
-							r.setColor(Color.GREEN);
-							jMapViewer.addMapPolygon(r);
-						} else {
-							break;
-						}
-					}
 				} else {
 					alerta("No hay las suficientes aristas para calcular un camino!", "Incalculable");
 				}
@@ -406,8 +429,20 @@ public class Main {
 
 	}
 
+	public static String inputUsuario(Frame frame, String mensaje) {
+		return JOptionPane.showInputDialog(frame, mensaje);
+	}
+
 	public static void alerta(String mensaje, String titulo) {
 		JOptionPane.showMessageDialog(null, mensaje, "Error: " + titulo, JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public static void alertaVertice(String mensaje) {
+		JOptionPane.showMessageDialog(null, mensaje, "Error: Vertice invalido!", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public static void alertaArista(String mensaje) {
+		JOptionPane.showMessageDialog(null, mensaje, "Error: Arista invalida!", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private static boolean esNumero(String cadena) {

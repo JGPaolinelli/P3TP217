@@ -37,12 +37,12 @@ public class Main {
 	private JTextField textField_NombreCiudad;
 	private JTextField textField_Latitud;
 	private JTextField textField_Longitud;
-	private Integer contid, contruta;
 	private JTextField textField_NombreCamino;
 	private JTextField textField_Inicio;
 	private JTextField textField_Fin;
 	private JTextField textField_Distancia;
 	private JTextField textField_Peaje;
+	private Integer contid, contruta;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -81,9 +81,9 @@ public class Main {
 		panel_1.setLayout(null);
 		panel_1.setVisible(false);
 
-		JLabel lblNewLabel = new JLabel("Nombre:");
-		lblNewLabel.setBounds(10, 44, 76, 14);
-		panel_1.add(lblNewLabel);
+		JLabel lblNombreCiudad = new JLabel("Nombre:");
+		lblNombreCiudad.setBounds(10, 44, 76, 14);
+		panel_1.add(lblNombreCiudad);
 
 		JLabel lblLatitud = new JLabel("Latitud:");
 		lblLatitud.setBounds(10, 72, 76, 14);
@@ -126,6 +126,9 @@ public class Main {
 		btnCancelarCiudad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel_1.setVisible(false);
+				textField_NombreCiudad.setText("");
+				textField_Latitud.setText("");
+				textField_Longitud.setText("");
 			}
 		});
 		btnCancelarCiudad.setBounds(10, 128, 86, 24);
@@ -196,6 +199,11 @@ public class Main {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.setVisible(false);
+				textField_NombreCamino.setText("");
+				textField_Inicio.setText("");
+				textField_Fin.setText("");
+				textField_Distancia.setText("");
+				textField_Peaje.setText("");
 			}
 		});
 		btnCancelar.setBounds(10, 164, 86, 24);
@@ -221,7 +229,6 @@ public class Main {
 		JMenuItem mntmVertice = new JMenuItem("Vertice");
 		mntmVertice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				if (panel.isVisible()) {
 					panel.setVisible(false);
 					panel_1.setVisible(true);

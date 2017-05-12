@@ -18,17 +18,17 @@ public class Vertice {
 	public String getNombre() {
 		return _nombre;
 	}
-	
-	@Override
-    public String toString() {
-            return _nombre;
-    }
-	
+		
 	public double getLatitud(){
 		return _lat;
 	}
 	public double getLongitud(){
 		return _long;
 	}
+	
+	@Override
+    public String toString() {
+            return _nombre;
+    }
 
 }

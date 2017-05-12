@@ -18,4 +18,5 @@ public class Grafo {
 	public List<Arista> getAristas() {
 		return aristas;
 	}
+	
 }

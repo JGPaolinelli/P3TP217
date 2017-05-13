@@ -136,11 +136,11 @@ public class Main {
 
 		JPanel panel = new JPanel();
 		panel.setBounds(769, 329, 205, 200);
-		jMapViewer.add(panel);
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.setLayout(null);
 		panel.setVisible(false);
-
+		jMapViewer.add(panel);
+		
 		JLabel lblNombreCamino = new JLabel("Nombre:");
 		lblNombreCamino.setBounds(10, 39, 61, 14);
 		panel.add(lblNombreCamino);

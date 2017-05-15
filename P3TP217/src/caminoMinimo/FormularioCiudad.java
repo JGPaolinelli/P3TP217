@@ -59,6 +59,7 @@ public class FormularioCiudad extends JPanel {
 		this.btnCancelarCiudad = new JButton("Cancelar");
 		this.btnCancelarCiudad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				jPanel_Ciudad.setVisible(false);
 				textField_NombreCiudad.setText("");
 				textField_Latitud.setText("");
 				textField_Longitud.setText("");

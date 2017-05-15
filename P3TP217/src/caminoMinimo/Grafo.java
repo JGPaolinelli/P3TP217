@@ -20,4 +20,11 @@ public class Grafo {
 		return this.aristas;
 	}
 	
+	public int cantAristas(){
+		return this.aristas.size();
+	}
+	
+	public int cantVertices(){
+		return this.vertices.size();
+	}
 }

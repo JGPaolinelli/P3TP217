@@ -16,10 +16,8 @@ public class Dijkstra {
 	private Map<Vertice, Vertice> predecesores;
 	private Map<Vertice, Integer> distancia;
 	private int cantPeajesMax;
-	private HashMap<Vertice, Integer> peajesvisitados; // para poder guardar los
-														// peajes en cada arista
-														// y luego compararlos
-														// en tiempo real
+	// para poder guardar los peajes en cada arista y luego compararlos en tiempo real
+	private HashMap<Vertice, Integer> peajesvisitados;
 
 	// copiamos los arreglos para poder modificarlos
 	public Dijkstra(Grafo grafo, int peajes) {

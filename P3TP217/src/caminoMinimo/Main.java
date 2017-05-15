@@ -403,13 +403,13 @@ public class Main {
 	private void agregarVertice(List<Vertice> vertices, JMapViewer jMapViewer) {
 		if (!textField_NombreCiudad.getText().equals("") && !textField_Latitud.getText().equals("")
 				&& !textField_Longitud.getText().equals("")) {
-			textField_Latitud.setText(textField_Latitud.getText().replace('.', ','));
-			textField_Longitud.setText(textField_Longitud.getText().replace('.', ','));
-			if (!esNumero(textField_Latitud.getText())) {
-				alerta("No ingresaste una latitud correcta!","Vertice invalido");
-			} else if (!esNumero(textField_Longitud.getText())) {
-				alerta("No ingresaste una longitud correcta!","Vertice invalido");
-			} else {
+//			textField_Latitud.setText(textField_Latitud.getText().replace('.', ','));
+//			textField_Longitud.setText(textField_Longitud.getText().replace('.', ','));
+//			if (!esNumero(textField_Latitud.getText())) {
+//				alerta("No ingresaste una latitud correcta!","Vertice invalido");
+//			} else if (!esNumero(textField_Longitud.getText())) {
+//				alerta("No ingresaste una longitud correcta!","Vertice invalido");
+//			} else {
 				vertices.add(new Vertice(Integer.toString(contid), textField_NombreCiudad.getText(),
 						new Double(textField_Latitud.getText()), new Double(textField_Longitud.getText())));
 				jMapViewer.addMapMarker(new MapMarkerDot(new Double(textField_Latitud.getText()),
@@ -418,7 +418,7 @@ public class Main {
 				textField_Latitud.setText("");
 				textField_Longitud.setText("");
 				contid++;
-			}
+//			}
 		} else {
 			if (textField_NombreCiudad.getText().equals("") && textField_Latitud.getText().equals("")
 					&& textField_Longitud.getText().equals("")) {

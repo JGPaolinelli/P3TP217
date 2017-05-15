@@ -34,7 +34,7 @@ public class Menu extends JMenuBar{
 		return menuBar;
 	}
 
-	public JMenuItem getMntmVertice() {
+	public JMenuItem getMntmCiudad() {
 		return mntmVertice;
 	}
 

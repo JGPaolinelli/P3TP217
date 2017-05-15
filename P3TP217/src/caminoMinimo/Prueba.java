@@ -3,6 +3,8 @@ package caminoMinimo;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -42,21 +44,25 @@ public class Prueba {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
+		List<Vertice> vertices = new ArrayList<Vertice>();
+		List<Arista> aristas = new ArrayList<Arista>();
+
 		JMapViewer jMapViewer = new JMapViewer();
 		jMapViewer.setBounds(0, 0, 984, 540);
 		frame.getContentPane().add(jMapViewer);
-		
-		FormularioCiudad formularioCiudad = new FormularioCiudad();
+
+		FormularioCiudad formularioCiudad = new FormularioCiudad(vertices, jMapViewer);
 		jMapViewer.add(formularioCiudad.getjPanel_Ciudad());
-		
-		FormularioCamino formularioCamino = new FormularioCamino();
+
+		FormularioCamino formularioCamino = new FormularioCamino(vertices, aristas, jMapViewer, frame);
 		jMapViewer.add(formularioCamino.getPanel());
-		
+		jMapViewer.setDisplayPositionByLatLon(-34.6083, -58.3712, 5);
+
 		Menu menu = new Menu();
 		frame.setJMenuBar(menu.getMenuBar());
-		
-		menu.getMntmVertice().addActionListener(new ActionListener() {
+
+		menu.getMntmCiudad().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (formularioCamino.isVisible()) {
 					formularioCamino.setVisible(false);
@@ -66,7 +72,7 @@ public class Prueba {
 				}
 			}
 		});
-		menu.getMntmArista().addActionListener(new ActionListener() {
+		menu.getMntmCiudad().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (formularioCiudad.isVisible()) {
 					formularioCiudad.setVisible(false);
@@ -78,7 +84,7 @@ public class Prueba {
 		});
 		menu.getMntmCalcularCaminoMinimo().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//calcularCaminoMinimo(vertices, aristas, jMapViewer);
+				formularioCamino.calcularCaminoMinimo(vertices, aristas, jMapViewer);
 			}
 		});
 	}

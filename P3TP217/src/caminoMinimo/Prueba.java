@@ -62,7 +62,7 @@ public class Prueba {
 		Menu menu = new Menu();
 		frame.setJMenuBar(menu.getMenuBar());
 
-		menu.getMntmCiudad().addActionListener(new ActionListener() {
+		menu.getMntmVertice().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (formularioCamino.isVisible()) {
 					formularioCamino.setVisible(false);
@@ -72,7 +72,7 @@ public class Prueba {
 				}
 			}
 		});
-		menu.getMntmCiudad().addActionListener(new ActionListener() {
+		menu.getMntmArista().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (formularioCiudad.isVisible()) {
 					formularioCiudad.setVisible(false);

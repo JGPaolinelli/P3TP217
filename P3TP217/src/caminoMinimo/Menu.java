@@ -20,8 +20,8 @@ public class Menu extends JMenuBar{
 		this.mnMenu = new JMenu("Menu");
 		this.mnAgregar = new JMenu("Agregar");
 		this.mnAgregar.setIcon(new ImageIcon(Main.class.getResource("/org/openstreetmap/gui/jmapviewer/images/plus.png")));
-		this.mntmVertice = new JMenuItem("Vertice");
-		this.mntmArista = new JMenuItem("Arista");
+		this.mntmVertice = new JMenuItem("Ciudad");
+		this.mntmArista = new JMenuItem("Ruta");
 		this.mntmCalcularCaminoMinimo = new JMenuItem("Calcular Camino Minimo");
 		this.menuBar.add(this.mnMenu);
 		this.mnMenu.add(this.mnAgregar);
@@ -34,7 +34,7 @@ public class Menu extends JMenuBar{
 		return menuBar;
 	}
 
-	public JMenuItem getMntmCiudad() {
+	public JMenuItem getMntmVertice() {
 		return mntmVertice;
 	}
 

@@ -3,6 +3,7 @@ package caminoMinimo;
 import java.util.List;
 
 public class Grafo {
+	
 	private final List<Vertice> vertices;
 	private final List<Arista> aristas;
 
@@ -12,11 +13,11 @@ public class Grafo {
 	}
 
 	public List<Vertice> getVertices() {
-		return vertices;
+		return this.vertices;
 	}
 
 	public List<Arista> getAristas() {
-		return aristas;
+		return this.aristas;
 	}
 	
 }

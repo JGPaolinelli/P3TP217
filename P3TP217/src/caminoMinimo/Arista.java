@@ -1,6 +1,7 @@
 package caminoMinimo;
 
 public class Arista {
+	
 	private String id;
 	private Vertice s, t;
 	private int peso;
@@ -38,5 +39,4 @@ public class Arista {
 	public String toString() {
 		return s + " " + t;
 	}
-
 }

@@ -10,21 +10,22 @@ import java.util.Map;
 import java.util.Set;
 
 public class Dijkstra {
-	private final List<Vertice> vertices;
 	private final List<Arista> aristas;
 	private Set<Vertice> verticesVisitados;
 	private Set<Vertice> vertSinVisitar;
 	private Map<Vertice, Vertice> predecesores;
 	private Map<Vertice, Integer> distancia;
-	private int peajesmax/*,peajesvisitados*/;
-	private HashMap<Vertice,Integer >peajesvisitados; //para poder guardar los peajes en cada arista y luego compararlos en tiempo real
-	
+	private int cantPeajesMax;
+	private HashMap<Vertice, Integer> peajesvisitados; // para poder guardar los
+														// peajes en cada arista
+														// y luego compararlos
+														// en tiempo real
 
 	// copiamos los arreglos para poder modificarlos
 	public Dijkstra(Grafo grafo, int peajes) {
-		this.vertices = new ArrayList<Vertice>(grafo.getVertices());
+		new ArrayList<Vertice>(grafo.getVertices());
 		this.aristas = new ArrayList<Arista>(grafo.getAristas());
-		peajesmax = peajes;
+		cantPeajesMax = peajes;
 	}
 
 	public void ejecutar(Vertice salida) {
@@ -32,38 +33,29 @@ public class Dijkstra {
 		vertSinVisitar = new HashSet<Vertice>();
 		distancia = new HashMap<Vertice, Integer>();
 		predecesores = new HashMap<Vertice, Vertice>();
-		peajesvisitados=new HashMap<Vertice,Integer>();
-//		peajesvisitados=0;
+		peajesvisitados = new HashMap<Vertice, Integer>();
 		distancia.put(salida, 0);
 		peajesvisitados.put(salida, 0);
 		vertSinVisitar.add(salida);
-		while (vertSinVisitar.size() > 0/* && peajesmax>peajesvisitados*/) {
+		while (vertSinVisitar.size() > 0) {
 			Vertice nodo = getMinimo(vertSinVisitar);
 			verticesVisitados.add(nodo);
 			vertSinVisitar.remove(nodo);
-			buscarDistanciaMinima(nodo);	
+			buscarDistanciaMinima(nodo);
 		}
 	}
 
 	private void buscarDistanciaMinima(Vertice nodo) {
 		List<Vertice> nodosAdj = getVecinos(nodo);
 		for (Vertice t : nodosAdj) {
-//			System.out.println(t.getNombre());
-//			System.out.println("getPeajeMinimo(nodo): "+getPeajeMinimo(nodo)+" + "+" getPeaje(nodo, t): "+getPeaje(nodo, t));
-//			System.out.println("nodo es:"+nodo.getNombre()+" y t es "+t.getNombre()+" getDistanciaMinima det:"+getDistanciaMinima(t)+"es mayor a la "+
-//					 "getDistanciaMinima(nodo) " +getDistanciaMinima(nodo)+" + "+ " getDistancia(nodo, t))"+getDistancia(nodo, t)+ " y si tiene peaje: "+getPeaje(nodo, t)
-//					 +"peajes visitados: "+peajesvisitados+ "peajes maximos: "+ peajesmax);	
-//			
-			//para que funcionara se copio lo que hace la primer parte del if, se utilizo el formato de distancia para comparar de la misma manera
-			if (getDistanciaMinima(t) > getDistanciaMinima(nodo) + getDistancia(nodo, t) && peajesmax >= getPeajeMinimo(nodo) + getPeaje(nodo, t) ){
+			if (getDistanciaMinima(t) > getDistanciaMinima(nodo) + getDistancia(nodo, t)
+					&& cantPeajesMax >= getPeajeMinimo(nodo) + getPeaje(nodo, t)) {
 				distancia.put(t, getDistanciaMinima(nodo) + getDistancia(nodo, t));
 				peajesvisitados.put(t, getPeajeMinimo(nodo) + getPeaje(nodo, t));
 				predecesores.put(t, nodo);
 				vertSinVisitar.add(t);
-				}
-					
+			}
 		}
-		
 	}
 
 	private List<Vertice> getVecinos(Vertice node) {
@@ -83,17 +75,16 @@ public class Dijkstra {
 	private int getDistancia(Vertice node, Vertice target) {
 		for (Arista arista : aristas) {
 			if (arista.getSalida().equals(node) && arista.getDestino().equals(target)) {
-				
 				return arista.getPeso();
 			}
 		}
-		throw new RuntimeException("Should not happen");
+		throw new RuntimeException("No deberia suceder");
 	}
 
 	private int getPeaje(Vertice node, Vertice target) {
 		for (Arista arista : aristas) {
 			if (arista.getSalida().equals(node) && arista.getDestino().equals(target)) {
-				if( arista.getPeaje()){
+				if (arista.getPeaje()) {
 					return 1;
 				}
 			}
@@ -123,13 +114,12 @@ public class Dijkstra {
 			return d;
 		}
 	}
-	
-	private int getPeajeMinimo (Vertice Destino){
+
+	private int getPeajeMinimo(Vertice Destino) {
 		Integer p = peajesvisitados.get(Destino);
 		if (p == null) {
 			return 0;
-		}
-		else{
+		} else {
 			return p;
 		}
 	}
@@ -141,11 +131,10 @@ public class Dijkstra {
 			throw new IllegalArgumentException("No hay camino disponible para esa cantidad de peajes, pagá rata!");
 		}
 		camino.add(paso);
-		while (predecesores.get(paso) != null) {	
+		while (predecesores.get(paso) != null) {
 			paso = predecesores.get(paso);
 			camino.add(paso);
 		}
-		// con esto se reordena porque queda medio raro xD
 		Collections.reverse(camino);
 		return camino;
 	}

@@ -19,7 +19,7 @@ public class Menu extends JMenuBar{
 		this.menuBar = new JMenuBar();
 		this.mnMenu = new JMenu("Menu");
 		this.mnAgregar = new JMenu("Agregar");
-		this.mnAgregar.setIcon(new ImageIcon(Main.class.getResource("/org/openstreetmap/gui/jmapviewer/images/plus.png")));
+		this.mnAgregar.setIcon(new ImageIcon(MainViejo.class.getResource("/org/openstreetmap/gui/jmapviewer/images/plus.png")));
 		this.mntmVertice = new JMenuItem("Ciudad");
 		this.mntmArista = new JMenuItem("Ruta");
 		this.mntmCalcularCaminoMinimo = new JMenuItem("Calcular Camino Minimo");

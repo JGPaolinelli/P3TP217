@@ -226,8 +226,6 @@ public class FormularioCamino extends JPanel{
 				} else if (verticeAux_2 == null) {
 					alerta("El vertice final no existe!", "404");
 				} else {
-					// TODO QUE PASA SI NO EXISTE LA ARISTA PARA LLEGAR AL
-					// CAMINO DESEADO
 					Dijkstra d = new Dijkstra(g, new Integer(cantidadPeajes));
 					for (Vertice vertice : vertices) {
 						if (vertice.getNombre().equals(ciudadInicial)) {

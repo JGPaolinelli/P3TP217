@@ -1,6 +1,7 @@
 package caminoMinimo;
 
 public class Vertice {
+	
 	private String _id, _nombre;
 	private double _long, _lat;
 
@@ -30,5 +31,4 @@ public class Vertice {
     public String toString() {
             return _nombre;
     }
-
 }
